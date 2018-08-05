@@ -41,9 +41,9 @@
 .LINK
     https://github.com/KevOtt/
 #> 
+[cmdletbinding()]
 
 Param(
-    [cmdletbinding()]
     [Parameter(Mandatory=$True)]
     [string]$GroupName,
     [Parameter(Mandatory=$True)]

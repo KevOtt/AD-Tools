@@ -43,8 +43,9 @@
     https://github.com/KevOtt/
 #> 
 
+[cmdletbinding()]
+
 Param(
-    [cmdletbinding()]
     [Parameter(Mandatory=$True)]
     [string]$ObjectName,
     [Parameter(Mandatory=$True)]
