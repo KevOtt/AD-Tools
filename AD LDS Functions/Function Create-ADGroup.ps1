@@ -13,10 +13,10 @@ Function Create-ADGroup{
         Will create the group in the root of the current domain by default, specify a DN of a specific OU or CN instead.
     .EXAMPLE
         Create-ADGroup -Name Group1 -Path 'CN=Users,DC=example,DC=com' -Scope Global -Type Security
-        Creates a Global security group called Group1 in the users container.
+        Creates a Global security group called "Group1" in the users container.
     .EXAMPLE
-        Create-ADGroup -Name Admins SamAccountName ServerAdmins -Description 'Server administrators' Group -Scope universal -Type Security
-        Creates a Universal security group called Admins, with SamAccount name of ServerAdmins in the domain root.
+        Create-ADGroup -Name Admins SamAccountName "ServerAdmins" -Description 'Server administrators' Group -Scope universal -Type Security
+        Creates a Universal security group called "Admins", with SamAccount name of ServerAdmins in the domain root.
     .PARAMETER Name
         Name or "CN" attribute of the group to create. Alias of "CN".
     .PARAMETER SamAccountName
@@ -109,18 +109,19 @@ Function Create-ADGroup{
     else{$sb = 0x00000008}
 
     $groupType = $tb -bor $sb
-   
 
     # Create new group
     $newGroup = $directoryEntry.Children.Add("cn=$Name",'group')
     $newGroup.Properties['grouptype'].Value = $groupType
-    
     if($SamAccountName -eq ''){
         $SamAccountName = $Name
         }
     $newGroup.Properties['SamAccountName'].Value = $SamAccountName
-    $newGroup.Properties['Description'].Value = $Description
-    
+    if($Description -ne ''){
+        $newGroup.Properties['Description'].Value = $Description
+        }
+
+    # Commit changes
     TRY{
         $newGroup.CommitChanges()
        }
