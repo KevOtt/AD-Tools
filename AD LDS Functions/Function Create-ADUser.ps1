@@ -15,9 +15,12 @@ Function Create-ADUser{
         supported, if you need more than the basic parameters, you should probably consider using New-ADUser
         from the Powershell module.
     .EXAMPLE
-
+        Create-ADUser -Name TestUser -Password $password -SamAccountName TestUser -DisplayName TestingUser -FirstName Testing -LastName User -Description 'User for testing' -Path 'OU=Test,DC=example,DC=COM' -AccountEnabled -UserMustChangePwd
+        Creates a new user account called "TestUser" with a password, sets the standard attributes, sets the account to be enabled, and 
+        specifies the user must change password at next login. User will be created in the OU "Test" in the domain "example.com"
     .EXAMPLE
-
+        Create-ADUser -Name TestUser2 -Password $password
+        Creates a new user account called "TestUser2", with a SamAccountName of "TestUser2", in the Users Container of the current domain.
     .PARAMETER Name
         The name of the new AD user object, alias of "CN", required parameter.
     .PARAMETER SamAccountName
